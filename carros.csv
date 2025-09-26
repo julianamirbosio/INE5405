@@ -1,4 +1,4 @@
-company names,cars names,engines,CC/Battery Capacity,HorsePower,Total Speed,Performance(0 - 100 )KM/H [s],Cars Prices [USD],fuel types,Seats,Torque [Nm]
+marca,modelo,tipo_motor,capacidade_bateria,cavalo_potencia,velocidade_maxima,perfomance,preco,combustivel,assentos,torque
 ferrari,sf90 stradale,v8,3990,963,340,"2,50","1,100,000 ",plug in hyrbrid,2,800
 rolls royce,phantom,v12,6749,563,250,"3,50","460,000",petrol,5,900
 ford,ka+,1.2l petrol,"1,2",85,165,"4,50","15,000",petrol,5,140
