@@ -3,21 +3,22 @@ carros <- read.csv(file.choose(), stringsAsFactors = FALSE)
 str(carros)
 names(carros)
 
-## --- Tabela de frequência: variável qualitativa (marca) ---
-table(carros$marca)
+library(ggplot2)
 
-## --- Gráfico de pizza ---
-pie(table(carros$marca),
-    main = "Proporção das Marcas de Carros",
-    col = rainbow(length(unique(carros$marca))))
+ggplot(carros, aes(x = factor(assentos))) +
+  geom_bar(fill = "tomato") +
+  labs(title = "Distribuição Número de Assentos",
+       x = "Número de Assentos",
+       y = "Frequência") +
+  theme_minimal(base_size = 14)
 
-# Ordenar por frequência
-freq_marcas <- sort(table(carros$marca), decreasing = TRUE)
-barplot(freq_marcas,
-        las = 2,
-        col = "tomato",
-        border = "black",
-        main = "Distribuição das Marcas (Ordenadas)",
-        xlab = "Marcas",
-        ylab = "Frequência")
+
+ggplot(carros, aes(y = assentos)) +
+  geom_boxplot(fill = "lightblue", color = "black") +
+  labs(title = "Boxplot do Número de Assentos",
+       y = "Número de Assentos") +
+  theme_minimal(base_size = 14)
+
+
+
 

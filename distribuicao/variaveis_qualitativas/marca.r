@@ -6,18 +6,19 @@ names(carros)
 ## --- Tabela de frequência: variável qualitativa (marca) ---
 table(carros$marca)
 
-## --- Gráfico de pizza ---
-pie(table(carros$marca),
-    main = "Proporção das Marcas de Carros",
-    col = rainbow(length(unique(carros$marca))))
+# Criar dataframe de frequências
+df_marcas <- as.data.frame(table(carros$marca))
+colnames(df_marcas) <- c("marca", "freq")
 
-# Ordenar por frequência
-freq_marcas <- sort(table(carros$marca), decreasing = TRUE)
-barplot(freq_marcas,
-        las = 2,
-        col = "tomato",
-        border = "black",
-        main = "Distribuição das Marcas (Ordenadas)",
-        xlab = "Marcas",
-        ylab = "Frequência")
+# Reordenar marcas pela frequência
+df_marcas$marca <- reorder(df_marcas$marca, -df_marcas$freq)
+
+# Gráfico de barras com ggplot2
+ggplot(df_marcas, aes(x = marca, y = freq)) +
+  geom_bar(stat = "identity", fill = "tomato", color = "black") +
+  labs(title = "Distribuição das Marcas (Ordenadas)",
+       x = "Marcas",
+       y = "Frequência") +
+  theme_minimal(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
