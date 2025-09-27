@@ -1,6 +1,7 @@
 # Trabalho de Probabilidade e Estatística
 
 Este repositório contém os materiais do trabalho de Probabilidade e Estatística.
+Obs: quando atualizar o csv, deixar o mesmo nome 'dataset.csv'
 
 ## Documentos
 
