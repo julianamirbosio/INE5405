@@ -1,10 +1,12 @@
 # --- 1. Carregar Bibliotecas ---
 library(ggplot2)
-library(scales) # Para formatar eixos (ex: labels = comma)
+library(scales) 
+library(dplyr)
 
-# --- 2. Carregar os Dados ---
-# Certifique-se de que o arquivo "carros.csv" está no seu diretório de trabalho
-carros <- read.csv("carros.csv", stringsAsFactors = FALSE)
+## --- Leitura dos dados ---
+carros <- read.csv(file.choose(), stringsAsFactors = FALSE)
+str(carros)
+names(carros)
 
 # --- 3. Limpeza dos Dados (Preço e Potência) ---
 
@@ -22,26 +24,8 @@ carros$cavalo_potencia <- as.numeric(carros$cavalo_potencia)
 # (Conforme sua metodologia de remoção de NAs [cite: 43-44])
 carros_reg <- na.omit(carros[, c("preco", "cavalo_potencia")])
 
-# --- 4. Modelo 1: Regressão Linear Simples (Preco ~ Potência) ---
 
-# Construir o modelo
-modelo_simples <- lm(preco ~ cavalo_potencia, data = carros_reg)
-
-# Analisar o modelo (R-squared de 0.2991)
-print(summary(modelo_simples))
-
-# Plotar o modelo simples
-ggplot(carros_reg, aes(x = cavalo_potencia, y = preco)) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(method = "lm", col = "red", formula = y ~ x) +
-  scale_y_continuous(labels = scales::comma) +
-  labs(title = "Regressão Linear: Preço vs. Potência",
-       x = "Cavalos de Potência (HP)",
-       y = "Preço (US$)") +
-  theme_minimal()
-
-
-# --- 5. Modelo 2: Regressão Log-Linear (RECOMENDADO) ---
+# ---. Modelo 2: Regressão Log-Linear (RECOMENDADO) ---
 
 # Construir o modelo log-linear (log10 do preço)
 modelo_log <- lm(log10(preco) ~ cavalo_potencia, data = carros_reg)
