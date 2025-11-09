@@ -33,7 +33,8 @@ modelo_log <- lm(log10(preco) ~ cavalo_potencia, data = carros_reg)
 # Analisar o modelo log-linear (R-squared de 0.8195)
 # Use este summary para a sua hipótese!
 print(summary(modelo_log))
-
+par(mfrow = c(2,2))
+plot(modelo_log, pch = 19)
 # Plotar o modelo log-linear (Note o scale_y_log10)
 # Este gráfico corresponde à sua Figura 9 [cite: 371-376]
 ggplot(carros_reg, aes(x = cavalo_potencia, y = preco)) +
@@ -45,3 +46,4 @@ ggplot(carros_reg, aes(x = cavalo_potencia, y = preco)) +
        x = "Cavalos de Potência (HP)",
        y = "Preço (US$)") +
   theme_minimal()
+

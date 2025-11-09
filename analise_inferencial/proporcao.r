@@ -9,8 +9,8 @@ str(carros)
 names(carros)
 
 #--- 3. Limpar a Coluna 'tipo_de_motor' ---
-  # (Apenas removendo NAs ou valores em branco, se houver)
-  motores_limpo <- na.omit(carros$tipo_de_motor)
+# (Apenas removendo NAs ou valores em branco, se houver)
+motores_limpo <- na.omit(carros$tipo_de_motor)
 motores_limpo <- motores_limpo[motores_limpo != ""] # Remove strings vazias
 
 # --- 4. Calcular 'n' e 'x' para o teste ---
@@ -22,9 +22,9 @@ n <- length(motores_limpo)
 x <- sum(motores_limpo == "i4")
 
 # --- 5. Definir a Hipótese ---
-# H0: p <= 0.25
-# H1: p > 0.25
-valor_proporcao_h0 <- 0.30
+# H0: p <= 0.30
+# H1: p > 0.30
+valor_proporcao_h0 <- 0.30 # Valor da hipótese nula
 
 # --- 6. Executar o Teste de Proporção para uma Amostra ---
 # Usamos alternative = "greater" porque nossa H1 é "maior que"
@@ -52,17 +52,18 @@ prop_motores_df <- data.frame(tipo_de_motor = motores_limpo) %>%
 ggplot(prop_motores_df, aes(x = reorder(tipo_de_motor, -proporcao), y = proporcao, fill = destaque)) +
   geom_bar(stat = "identity", color = "black") +
   
-  # Adicionar a linha da Hipótese Nula (p = 0.25)
+  # Adicionar a linha da Hipótese Nula (p = 0.30)
   geom_hline(yintercept = valor_proporcao_h0, 
              linetype = "dashed", 
              color = "#e41a1c", # Vermelho
              size = 1.2) +
   
   # Anotação para a linha da hipótese
+  # --- CORREÇÃO: Posição Y ajustada para 0.32 (acima da linha de 0.30) ---
   annotate(geom = "text", 
            x = 5, # Posição x da anotação
-           y = 0.27, # Posição y (um pouco acima da linha)
-           label = paste("H0: p =", valor_proporcao_h0), 
+           y = 0.32, # Posição y (um pouco acima da linha)
+           label = paste("H0: p \u2264", valor_proporcao_h0), # \u2264 é o símbolo <= 
            color = "#e41a1c",
            fontface = "bold") +
   
@@ -72,12 +73,12 @@ ggplot(prop_motores_df, aes(x = reorder(tipo_de_motor, -proporcao), y = proporca
   # Definir as cores do destaque
   scale_fill_manual(values = c("Destaque (i4)" = "steelblue", "Outros" = "grey80")) +
   
+  # --- CORREÇÃO: Subtítulo ajustado para "Hipótese Nula (30%)" ---
   labs(title = "Visualização do Teste de Proporção: Motores 'i4'",
-       subtitle = paste("Proporção Observada (", round(teste_proporcao$estimate * 100, 1), "%) vs. Hipótese Nula (25%)"),
+       subtitle = paste("Proporção Observada (", round(teste_proporcao$estimate * 100, 1), "%) vs. Hipótese Nula (30%)", sep=""),
        x = "Tipo de Motor",
        y = "Proporção no Dataset") +
   
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1), # Rotaciona texto do eixo X
         legend.position = "none") # Remove a legenda (destaque já é óbvio)
-

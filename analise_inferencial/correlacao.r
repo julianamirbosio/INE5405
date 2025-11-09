@@ -57,3 +57,4 @@ ggplot(carros_corr_limpo, aes(x = cavalo_potencia, y = perfomance)) +
        x = "Cavalos de Potência (HP) - (Eixo logarítmico)",
        y = "Tempo de Aceleração (segundos)") +
   theme_minimal()
+
